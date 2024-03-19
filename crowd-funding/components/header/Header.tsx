@@ -1,5 +1,6 @@
 import icon from "./signup.png";
 import Image from "next/image";
+import Wallet from "../Wallet";
 export default function () {
   return (
     <div>
@@ -13,6 +14,9 @@ export default function () {
             </li>
             <li>Start a Campaign</li>
             <li>DashBoard</li>
+            <li>
+              <Wallet />
+            </li>
           </ul>
         </li>
       </ul>
