@@ -1,3 +1,8 @@
+import Form from "@/components/form/Form";
 export default function page() {
-  return <div>campaign</div>;
+  return (
+    <div>
+      campaign <Form />
+    </div>
+  );
 }
