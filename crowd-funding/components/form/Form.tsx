@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -8,13 +8,27 @@ export default function Form() {
     description: "",
     amount: 0,
     image: "",
+    category: "education",
   });
-  type _event = {
-    target: { name: string; value: string | number };
+  const [image, setImage] = useState<File | null>(null);
+
+  const imageHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList && fileList.length > 0) {
+      setImage(fileList[0]);
+    } else {
+      setImage(null);
+    }
   };
-  const onFormChange = (e: _event) => {
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+  const onFormChange = async (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
   };
+
   return (
     <div>
       Form
@@ -51,14 +65,26 @@ export default function Form() {
             />
           </div>
           <div>
-            <label>Image</label>
-            <input
-              type="text"
-              id="image"
-              name="image"
-              value={formData.image}
+            <label>Category</label>
+            <select
+              id="category"
+              name="category"
               onChange={onFormChange}
-            />
+              value={formData.category}
+            >
+              <option value="education">Education</option>
+              <option value="health">Health</option>
+              <option value="needs">Needs</option>
+            </select>
+          </div>
+          <div>
+            <label>Select Image</label>
+          </div>
+          <div>
+            <div>Upload File to IPFS</div>
+          </div>
+          <div>
+            <div>Start the Campaign</div>
           </div>
         </form>
       </div>
